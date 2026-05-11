@@ -1,0 +1,49 @@
+model:
+  name: llama-3-70b
+  dtype: bfloat16
+  attn_implementation: flash_attention_2
+  rope_scaling:
+    type: dynamic
+    factor: 8.0
+
+training:
+  max_seq_len: 131072
+  micro_batch_size: 1
+  gradient_accumulation_steps: 16
+  learning_rate: 2e-5
+  weight_decay: 0.1
+  warmup_steps: 200
+  lr_scheduler: cosine
+  num_epochs: 3
+  gradient_checkpointing: true
+  fp8: true
+
+lora:
+  r: 64
+  alpha: 128
+  dropout: 0.05
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+parallelism:
+  fsdp: true
+  sharding_strategy: hybrid_shard
+  tp_size: 1
+  pp_size: 1
+
+data:
+  dataset: long-context-mix
+  streaming: true
+  tokenizer: meta-llama/Llama-3-70B
+  packing: true
+
+logging:
+  wandb_project: large-context-training
+  log_interval: 10
+  save_interval: 500

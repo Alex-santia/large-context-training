@@ -1,0 +1,38 @@
+model:
+  name: deepseek-v3
+  dtype: bfloat16
+  attn_implementation: ring_attention
+  rope_scaling:
+    type: yarn
+    factor: 16.0
+    original_max_positions: 4096
+
+training:
+  max_seq_len: 131072
+  micro_batch_size: 1
+  gradient_accumulation_steps: 32
+  learning_rate: 1e-5
+  weight_decay: 0.05
+  warmup_steps: 500
+  lr_scheduler: cosine
+  num_epochs: 2
+  gradient_checkpointing: true
+  gradient_checkpointing_block_size: 8192
+
+parallelism:
+  fsdp: true
+  sharding_strategy: full_shard
+  tp_size: 2
+  pp_size: 2
+  zero_stage: 3
+
+data:
+  dataset: code-long-context
+  streaming: true
+  tokenizer: deepseek-ai/deepseek-v3
+  packing: false
+
+logging:
+  wandb_project: large-context-training
+  log_interval: 5
+  save_interval: 200
