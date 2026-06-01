@@ -5,7 +5,8 @@ dist/
 build/
 wandb/
 checkpoints/
-data/
+/data/
+__pycache__/
 .env
 *.safetensors
 *.bin
