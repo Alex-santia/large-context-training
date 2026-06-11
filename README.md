@@ -1,16 +1,16 @@
 # Large Context Training
 
-Framework untuk training dan fine-tuning large language models (70B+) dengan extended context window hingga 256K tokens. Dioptimalkan untuk GPU dengan VRAM besar (>80GB) menggunakan teknik memory-efficient training.
+A distributed training framework for large language models (70B+) with extended context windows up to 256K tokens. Optimized for GPUs with large VRAM (>80GB) using memory-efficient training techniques.
 
 ## Overview
 
-Training model besar dengan context panjang adalah tantangan utama di NLP modern. Framework ini mengimplementasikan:
+Training large models with long context is a major challenge in modern NLP. This framework implements:
 
-- **Ring Attention** untuk context extension tanpa OOM
-- **Distributed FSDP** dengan custom gradient checkpointing
-- **Dynamic RoPE scaling** untuk positional interpolation
-- **FP8 mixed precision** dengan per-GPU loss scaling
-- **Async data pipeline** untuk streaming training samples
+- **Ring Attention** for context extension without OOM
+- **Distributed FSDP** with custom gradient checkpointing
+- **Dynamic RoPE scaling** for positional interpolation
+- **FP8 mixed precision** with per-GPU loss scaling
+- **Async data pipeline** for streaming training samples
 
 ## Why Large VRAM?
 
